@@ -9,8 +9,7 @@ import {
   fetchTelegram,
   fetchUser,
 } from "../controllers/admin.controllers.js";
-import { requireLogout } from "../middleware/user.middleware.js";
-import { requireAdmin } from "../middleware/user.middleware.js";
+import { requireAdmin, requireLogout } from "../middleware/user.middleware.js";
 
 const router = Router();
 

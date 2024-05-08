@@ -2,7 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { User } from "../models/user.models.js";
 import { Telegram } from "../models/telegram.model.js";
 import { ApiError } from "../utils/apiErrorHandler.js";
-import { ApiResponse } from "../utils/apiResponse.js";
+// import { ApiResponse } from "../utils/apiResponse.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import path from "path";
@@ -10,13 +10,10 @@ import path from "path";
 const userRegister = async (req, res) => {
   const { username, email, password } = req.body;
 
-  console.log(req.body, username, email, password);
-
   if ([username, email, password].every((field) => field?.trim() === "")) {
     throw new ApiError(400, "Please fill the all required fields.");
   }
 
-  console.log(req.body);
   const user = await User.create({
     username,
     email,
@@ -32,7 +29,9 @@ const userRegister = async (req, res) => {
   //  res.status(201).json(
   //     new ApiResponse(200, "User Registered Successfully", createdUser )
   // )
+
   res.redirect("/");
+
 };
 
 const telegramUrl = async (req, res) => {
@@ -46,7 +45,7 @@ const telegramUrl = async (req, res) => {
 
       await existingTelegram.save();
       res.redirect("/admin")
-      
+
     //   res
     //     .status(200)
     //     .json({
@@ -58,7 +57,6 @@ const telegramUrl = async (req, res) => {
       const newTelegram = new Telegram(telegramData);
       await newTelegram.save();
       res.redirect("/admin");
-      // res.status(201).json({ message: "Telegram URL created successfully", data: newTelegram });
     }
   } catch (error) {
     res
@@ -72,6 +70,7 @@ const serveRegisterPage = (req, res) => {
   const __dirname = dirname(__filename);
   res.sendFile(path.join(__dirname, "../../public/register.html"));
 };
+
 const adminpage = (req, res) => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
