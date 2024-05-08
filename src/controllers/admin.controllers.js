@@ -45,12 +45,15 @@ const telegramUrl = async (req, res) => {
       existingTelegram.telegram = telegramData.telegram;
 
       await existingTelegram.save();
-      res
-        .status(200)
-        .json({
-          message: "Telegram URL updated successfully",
-          data: existingTelegram,
-        });
+      res.redirect("/admin")
+      
+    //   res
+    //     .status(200)
+    //     .json({
+    //       message: "Telegram URL updated successfully",
+    //       data: existingTelegram,
+    //     });
+
     } else {
       const newTelegram = new Telegram(telegramData);
       await newTelegram.save();
@@ -97,10 +100,7 @@ const userLogin = asyncHandler(async (req, res) => {
 
   const loggedInUser = await User.findById(user._id).select("-password");
 
-  const option = {
-    httpOnly: true,
-    secure: true,
-  };
+
 
   req.session.userId = user._id;
 

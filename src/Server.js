@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
-import express, { urlencoded } from "express";
-import bodyParser from "body-parser";
+import express from "express";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import multer from "multer";
+
 
 import dbconnect from "./db/connection.db.js";
 
@@ -38,7 +38,7 @@ dbconnect()
     app.listen(port, () => {
       console.log("Database connected susseccfully");
     });
-  })
+})
   .catch((error) => {
     console.log(`ERROR : DB connection failed...`, error);
-  });
+});

@@ -6,7 +6,7 @@ const requireLogout = (req, res, next) => {
 };
 
 const requireAdmin = async (req, res, next) => {
-  const userId = req.session.userId;
+  const userId = await req.session.userId;
   console.log(userId);
   if (!userId) {
     res.redirect("/");
